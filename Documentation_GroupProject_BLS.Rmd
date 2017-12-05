@@ -1,0 +1,61 @@
+---
+title: "Documentation_Groupproject_BSL"
+author: "Bhavana"
+date: "November 27, 2017"
+output:
+  pdf_document: default
+  html_document: default
+theme: Green
+---
+
+```
+```
+
+## Project title: Obesity Induced Changes in Gene Expression
+## Group partners: Shane Davitt, Bhavana Palakurthi, Lindsayeg Serene
+## Scripting Language: R
+## Teaching Assistant: Ann Raiho
+
+### *Due prior to class, 29 November 2017:*
+
+1. Use BLAST to identify the genes encoded by the 6 differentially expressed transcripts listed in uniquetranscripts.fasta *(Lindsay)*  
+2. Search the NCBI protein database (Nucleotide collection (nr/nt) Database) for amino acid sequences corresponding to these 6 transcripts *(Lindsay)*  
+3. Translate the 4 provided files of "RNAseq data". Write a R script to translate nucleotide sequences into amino acid sequences *(Pseudocode by Shane and Bhavana)*
+
+### *In class, 29 November 2017:*
+
+4. Translate pseudo code into R code. *(All three)*
+
+### *Due by the end of class, 1 December 2017:*
+
+5. Build a Hidden Markov Model for each of the 6 transcript proteins and search the 4 translated "RNAseq files". *(Shane)*
+6. Graph the "expression levels" of each protein in each of the "RNAseq files" *(Bhavana)*
+
+### *Due prior to class, 6 December 2017:*
+
+7. Documentation of the project plan. *(Bhavana)*
+8. Further exploration 1:Examine how discontinuous megablast and blastn qualitatively change your table of BLAST hits. *(Shane)*
+9. Further exploration 2: Explore the effects of phylogenetic relatedness of amino acid sequences on the performance of the HMM mode. *(Shane)*
+
+### *In class, 6 December 2017:*
+
+10. Compare and discuss the code for translating RNAseq data and choose the best and efficient code. *(All the three)*
+11. Peer review of the code. *(All the three)*
+
+### *Due prior to class, 8 December 2017:*
+
+12. Make changes as per discussion and peer review on the final code. *(All the three)*
+13. Comment collectively on the final code for all the sub-problems.*(All the three)*
+14. Final check to make sure all the files are uploaded to github by Thursday, December, 7. *(All the three)*
+
+### *Due before deadline, noon of 8, December 2017:*
+
+15. Submission of the url for the github repo for the group project emailed to TA.*(Lindsay)*
+
+```
+```
+
+
+```
+```
+
