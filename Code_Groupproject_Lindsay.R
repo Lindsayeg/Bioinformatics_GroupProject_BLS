@@ -32,7 +32,14 @@ for (Line in 1:length(Control1)){
   #Note that str_detect returns a logical T/F
   if (!str_detect(Control1[Line],">")){
     #Find the ORF in each sequence line and write to a new file
-    Control1_ORF[Line/2] = str_extract(Control1[Line],"ATG([ATGC]{3})+(TAG|TAA|TGA)")
+    #Search for (with grepexpr) the start codon (ATG)
+    atg_positions <- gregexpr('ATG', Control1[Line])[[1]]
+    start_codon_position <- min(atg_positions[atg_positions%%3==1])
+    ORF_temp <- substring(Control1[Line], start_codon_position)
+    end_positions <- gregexpr("(TAA)|(TAG)|(TGA)", ORF_temp)[[1]]
+    end_codon_position <- min(end_positions[end_positions%%3==1])
+    Control1_ORF[Line/2] = substring(ORF_temp, 1, end_codon_position+2)
+    #Control1_ORF[Line/2] = str_extract(ORF_temp,"ATG([ATGC]{3})+((TAG)|(TAA)|(TGA))?")
   }
 }
 
@@ -69,7 +76,8 @@ for (sequence in 1:length(Control1_ORF)){
 }
 
 
-
+#Write files out as a fasta file
+write.fasta(sequences = Control1_Protein, names = names(Control1[Line]), file.out = "Cntrl1.fasta")
 
 
 ###This is all in UNIX on the command line.
