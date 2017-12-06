@@ -1,6 +1,5 @@
 ---
 title: "Documentation_Groupproject_BSL"
-author: "Bhavana"
 date: "November 27, 2017"
 output:
   pdf_document: default
@@ -11,7 +10,7 @@ theme: Green
 ```
 ```
 
-## Project title: Obesity Induced Changes in Gene Expression
+## Project title: **Obesity Induced Changes in Gene Expression**
 ## Group partners: Shane Davitt, Bhavana Palakurthi, Lindsayeg Serene
 ## Scripting Language: R
 ## Teaching Assistant: Ann Raiho
