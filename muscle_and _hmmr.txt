@@ -1,0 +1,26 @@
+#To be run with bash. Filepaths are dependent on the user's file structure. This form assumes that the protein.fasta file to be searched, the translated RNA seq, and both hmmr and muscle functions are within the same directory (and on the sme level of that directory).
+# Code for aligning the translated sequences, building an hmm model, and conducting a searching that hmm model
+
+##Creating Alignments
+$for filename in Transcript*.fasta
+do
+	echo $filename
+	./muscle -in $filename -out algn_$filename
+done
+
+##Building hmmr model
+$for filename in algn_*.fasta
+do
+	echo $filename
+	./hmmbuild hmmr.$filename $filename
+done
+
+##Searching translated RNA seq against hmmr models
+$for transRNA in trans_*.RNA
+do
+	echo $transRNA
+	$for hmmrfile in hmmr.*
+		./hmmsearch --tblout hits_$transRNA. $hmmrfile $transfile
+		cat hits_$transRNA | grep -v "#" | awk '{print $1,$3,$6}' > hits_$transRNA.table
+	done
+done
