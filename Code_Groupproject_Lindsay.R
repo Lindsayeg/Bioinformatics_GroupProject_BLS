@@ -24,13 +24,15 @@ library('seqinr')
 #Read in fasta file, each line becomes an item in a vector
 Control1=scan("control1.fasta",what=character(),sep="\n")
 
+Control1_ORF = character(length(Control1)/2)
+
 ###Determine the ORF of each sequence file using a for loop.
 for (Line in 1:length(Control1)){
   #Operate only on lines that do not include >, skips header lines
   #Note that str_detect returns a logical T/F
   if (!str_detect(Control1[Line],">")){
     #Find the ORF in each sequence line and write to a new file
-    Control1_ORF = str_extract(Control1[Line],"ATG([ATGC]{3})+(TAG|TAA|TGA)?")
+    Control1_ORF[Line/2] = str_extract(Control1[Line],"ATG([ATGC]{3})+(TAG|TAA|TGA)")
   }
 }
 
@@ -58,13 +60,13 @@ for (i in 1:length(amino_acid_list)){
 ### Use a while loop (while i is less than or equal to the length of the reading frame, i+2)
 
 Control1_Protein = character(length(Control1_ORF))
-i <- 1
-while (i < length(Control1_ORF)){
-  Control1_Protein = c(Control1_Protein, amino_acid_list+(Control1_ORF[i:i+2]))
-  print[i]
-  i=i+3
+for (sequence in 1:length(Control1_ORF)){
+  nucleotide <- 1
+    while (nucleotide < nchar(Control1_ORF[sequence])){
+    Control1_Protein[sequence] = paste(Control1_Protein[sequence], amino_acid_list[substr(Control1_ORF[sequence], nucleotide,nucleotide+2)], sep="")
+    nucleotide=nucleotide+3
+  }
 }
-
 
 
 
@@ -88,6 +90,12 @@ do
 /Users/lou/Desktop/hmmer-3.1b2-macosx-intel/binaries/hmmbuild $file.hmm $file
 done
 
+###Search all 4 translated “RNAseqfiles” for each of the 6 HMM protein models using hmmsearch.
+for file in ./*.hmm
+do
+/Users/lou/Desktop/hmmer-3.1b2-macosx-intel/binaries/hmmsearch --tblout Results.txt *.hmm $file
+cat Results.txt >> All_Results.txt
+done
 
 
 
