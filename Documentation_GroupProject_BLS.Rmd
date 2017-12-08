@@ -1,17 +1,16 @@
 ---
 title: "Documentation_Groupproject_BSL"
-date: "November 27, 2017"
 output:
-  pdf_document: default
   html_document: default
-theme: Green
+  pdf_document: default
+date: "December 8, 2017"
 ---
 
 ```
 ```
 
 ## Project title: **Obesity Induced Changes in Gene Expression**
-## Group partners: Shane Davitt, Bhavana Palakurthi, Lindsayeg Serene
+## Group partners: Shane Davitt, Bhavana Palakurthi, Lindsay Serene
 ## Scripting Language: R
 ## Teaching Assistant: Ann Raiho
 
@@ -24,32 +23,39 @@ theme: Green
 ### *Tasks in class, 29 November 2017:*
 
 4. Translate pseudo code into R code. *(All three)*
+5. Translating using grep, substring, and while loop. *(Lindsay)*
+6. Translating using regex and translate function. *(Bhavana)*
+
 
 ### *Tasks due by the end of class, 1 December 2017:*
 
-5. Build a Hidden Markov Model for each of the 6 transcript proteins and search the 4 translated "RNAseq files". *(Shane)*
-6. Graph the "expression levels" of each protein in each of the "RNAseq files" *(Bhavana)*
+7. Translate pseudo code into R code. *(Lindsay and Bhavana)*
+8. Build a Hidden Markov Model for each of the 6 transcript proteins and search the 4 translated "RNAseq files". *(All the three)*
 
 ### *Tasks due prior to class, 6 December 2017:*
 
-7. Documentation of the project plan. *(Bhavana)*
-8. Further exploration 1:Examine how discontinuous megablast and blastn qualitatively change your table of BLAST hits. *(Shane)* 
-9. Further exploration 2: Explore the effects of phylogenetic relatedness of amino acid sequences on the performance of the HMM mode. *(Shane)*
+9. Documentation of the project plan. *(Bhavana)*
+10. Translate pseudo code into R code. *(Lindsay and Bhavana)*
+
 
 ### *Tasks in class, 6 December 2017:*
 
-10. Compare and discuss the code for translating RNAseq data and choose the best and efficient code. *(All the three)*
-11. Peer review of the code. *(All the three)*
+11. Translate pseudo code into R code. *(Lindsay and Bhavana)*
+12. Compare and discuss the code for translating RNAseq data and choose the best and efficient code. *(All the three)*
+13. Peer review of the code. *(All the three)*
 
 ### *Tasks due prior to class, 8 December 2017:*
 
-12. Make changes as per discussion and peer review on the final code. *(All the three)*
-13. Comment collectively on the final code for all the sub-problems.*(All the three)*
-14. Final check to make sure all the files are uploaded to github by Thursday, December, 7. *(All the three)*
+14. Translate pseudo code into R code. *(Lindsay and Bhavana)*
+15. Further exploration 1:Examine how discontinuous megablast and blastn qualitatively change your table of BLAST hits. *(Shane)* 
+16. Further exploration 2: Explore the effects of phylogenetic relatedness of amino acid sequences on the performance of the HMM mode. *(Lindsay and Bhavana)*
+17. Make changes as per discussion and peer review on the final code. *(All the three)*
+18. Comment collectively on the final code for all the sub-problems.*(All the three)*
+16. Final check to make sure all the files are uploaded to github. *(All the three)*
 
 ### *Tasks due before deadline, noon of 8, December 2017:*
 
-15. Submission of the url for the github repo for the group project emailed to TA.*(Lindsay)*
+19. Submission of the url for the github repo for the group project emailed to TA.*(All the three)*
 
 ```
 ```
