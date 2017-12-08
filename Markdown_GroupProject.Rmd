@@ -120,20 +120,161 @@ for (Line in 1:length(Obese2)){
 ```
 Alternatively we also have another method to extract open reading frame and translate it. We have them explained below.
 ```{r, message=FALSE, warning=FALSE}
-#Set working directory and read each of the original neucleotide fasta files.
-setwd("~/Desktop/data-shell/BioInfo_GroupProject/Bioinformatics_GroupProject_BLS/Original_Files/")
-
-#Read in fasta file, each line becomes an item in a vector
-Codon_Map=scan("codonmap.txt",what=character(),sep="\n")
-Control1=scan("control1.fasta",what=character(),sep="\n")
-Control2=scan("control2.fasta",what=character(),sep="\n")
-Obese1=scan("obese1.fasta",what=character(),sep="\n")
-Obese2=scan("obese2.fasta",what=character(),sep="\n")
-
-#Load package
-library('stringr')
-library('devtools')
-library('seqinr')
+##Translating RNAseq files into aminoacid sequences
+##Using regex and translate function from seqinr 
+##
+#Assign empty character vectors for file to extract open reading frame into them
+match1=character(length(control1)/2)
+match2=character(length(control2)/2)
+match3=character(length(obese1)/2)
+match4=character(length(obese2)/2)
+##
+##
+#Read the nucleotide fasta files control 1&2 and obese 1&2
+control1=scan(file = "control1.fasta.txt", what = character(), sep = "\n")
+control2=scan(file = "control2.fasta.txt", what = character(), sep = "\n")
+obese1=scan(file = "obese1.fasta.txt", what = character(), sep = "\n")
+obese2=scan(file = "obese2.fasta.txt", what = character(), sep = "\n")
+##
+##
+#Load stringr/i and seqinr packages
+library(stringr)
+library(stringi)
+library(seqinr)
+##
+##
+##
+##
+#forloop to extraxt openreading frame of control1 seq file
+for (Line in 1:length(control1)){
+#Operate only on lines that do not include >, skips header lines
+#Note that str_detect returns a logical T/F
+if (!str_detect(control1[Line],">")==TRUE){
+#Find the ORF in each sequence line
+match1[Line/2] = str_match(control1[Line],"([ATCG]{3})*?(ATG([ATCG]{3})+?(TAA|TAG|TGA))")[,3]
+#Print the ORF to standard out
+print(match1)
+  }
+}
+##
+#create an empty vector of length equal to match1 each for tranlated amino acid sequences before and after formating
+control1aa=character(length(match1))
+control1protein=c(length(match1))
+#use translate function to translate nucleotides into aa through a for loop
+for(Line in 1:length(match1)){
+#translate sequence of each line from the match1 in a loop
+  control1aa=(translate(s2c(match1[Line])))
+#print the translated sequence to standard out
+  print(control1aa)
+#format the output by removing quotes from each amino acid
+  control1protein[Line]=paste(control1aa, sep="", collapse="")
+  print(control1protein)
+#write the sequence of aminoacids in a fasta file format
+  write.fasta(sequences = as.list(control1protein), names = rep("control1", times=length(control1protein)),file.out = "control1protein.fasta")
+}
+##
+##
+##Repeat the same for all the original files(control2,obese1,and obese2)
+##
+##
+#forloop for control2 seq file orf extract
+for (Line in 1:length(control2)){
+#Operate only on lines that do not include >, skips header lines
+#Note that str_detect returns a logical T/F
+if (!str_detect(control2[Line],">")==TRUE){
+#Find the ORF in each sequence line
+match2[Line/2] = str_match(control2[Line],"([ATCG]{3})*?(ATG([ATCG]{3})+?(TAA|TAG|TGA))")[,3]
+#Print the ORF to standard out
+print(match2)
+}
+}
+##
+#create an empty vector of length equal to match2 each for storing translated aminoacid before and after formating
+control2aa=character(length(match2))
+control2protein=c(length(match2))
+#use translate function to translate nucleotides into aa through a for loop
+for(Line in 1:length(match2)){
+#translate sequence of each line from the match1 in a loop
+  control2aa=(translate(s2c(match2[Line])))
+#print the translated sequence to standard out
+  print(control2aa)
+#format the output by removing quotes from each amino acid
+  control2protein[Line]=paste(control2aa, sep="", collapse="")
+#print the formated translated sequence to standard out
+  print(control2protein)
+#write the sequence of aminoacids in a fasta file format
+  write.fasta(sequences = as.list(control2protein), names = rep("control2", times=length(control2protein)),file.out = "control2protein.fasta")
+}
+##
+##
+#forloop for obese1 seq file orf extract
+for (Line in 1:length(obese1)){
+  #Operate only on lines that do not include >, skips header lines
+  #Note that str_detect returns a logical T/F
+  if (!str_detect(obese1[Line],">")==TRUE){
+    #Find the ORF in each sequence line
+    match3[Line/2] = str_match(obese1[Line],"([ATCG]{3})*?(ATG([ATCG]{3})+?(TAA|TAG|TGA))")[,3]
+    #Print the ORF to standard out
+    print(match3)
+  }
+}
+##
+##
+##
+#create an empty vector of length equal to match3 each 
+#for storing translated aminoacid before and after formating
+obese1aa=character(length(match3))
+obese1protein=c(length(match3))
+##
+##
+#use translate function to translate nucleotides into aa through a for loop
+for(Line in 1:length(match3)){
+#translate sequence of each line from the match1 in a loop
+obese1aa=(translate(s2c(match3[Line])))
+#print the translated sequence to standard out
+print(obese1aa)
+#format the output by removing quotes from each amino acid
+obese1protein[Line]=paste(obese1aa, sep="", collapse="")
+#print the formated translated sequence to standard out
+print(obese1protein)
+#write the sequence of aminoacids in a fasta file format
+  write.fasta(sequences = as.list(obese1protein), names = rep("obese1", times=length(obese1protein)),file.out = "obese1protein.fasta")
+  }
+##
+##
+##
+#forloop for obese2 seq file orf extract
+for (Line in 1:length(obese2)){
+#Operate only on lines that do not include >, skips header lines
+#Note that str_detect returns a logical T/F
+if (!str_detect(obese2[Line],">")==TRUE){
+#Find the ORF in each sequence line
+match4[Line/2] = str_match(obese2[Line],"([ATCG]{3})*?(ATG([ATCG]{3})+?(TAA|TAG|TGA))")[,3]
+    #Print the ORF to standard out
+    print(match4)
+}
+  }
+##
+##
+#create an empty vector of length equal to match4 each 
+#for storing translated aminoacid before and after formating
+obese2aa=character(length(match4))
+obese2protein=c(length(match4))
+##
+##
+#use translate function of seqinr package to translate nucleotides into aa
+for(Line in 1:length(match4)){
+#translate sequence of each line from the match1 in a loop
+obese2aa=(translate(s2c(match4[Line])))
+#print the translated sequence to standard out
+print(obese2aa)
+#format the output by removing quotes from each amino acid
+obese2protein[Line]=paste(obese2aa, sep="", collapse="")
+#print the formated translated sequence to standard out
+print(obese2protein)
+#write the sequence of aminoacids in a fasta file format
+write.fasta(sequences = as.list(obese2protein), names = rep("obese2", times=length(obese2protein)),file.out = "obese2protein.fasta")
+  }
 ```
 Having identified the open reading frame and extracted our genes of interest, the next goal of aim 2 was to translate each codon of the extracted nucleotide sequences into thier corresponding amino acids. To do this, we first created a dictionary of amino acids, which we could then apply to the nucleotide sequences using a while loop.
 
