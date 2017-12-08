@@ -46,7 +46,7 @@ for(Line in 1:length(match1)){
   print(control1aa)
   control1protein[Line]=paste(control1aa, sep="", collapse="")
   print(control1protein)
-  write.fasta(sequences = control1protein, names = names(control1protein), file.out = "cntrl1.fasta")
+  write.fasta(sequences = as.list(control1protein), names = rep("control1", times=length(control1protein)),file.out = "control1protein.fasta")
 }
 ##
 ##
@@ -74,7 +74,8 @@ for(Line in 1:length(match2)){
   print(control2aa)
   control2protein[Line]=paste(control2aa, sep="", collapse="")
   print(control2protein)
-  write.fasta(sequences = control2protein, names = names(control2protein), file.out = "cntrl2.fasta")
+  write.fasta(sequences = as.list(control2protein), names = rep("control2", times=length(control2protein)),file.out = "control2protein.fasta")
+  
 }
 ##
 ##
@@ -100,19 +101,11 @@ for(Line in 1:length(match3)){
   print(obese1aa)
   obese1protein[Line]=paste(obese1aa, sep="", collapse="")
   print(obese1protein)
-  write.fasta(sequences = obese1protein, names = names(obese1protein), file.out = "obes1.fasta")
+  write.fasta(sequences = as.list(obese1protein), names = rep("obese1", times=length(obese1protein)),file.out = "obese1protein.fasta")
+  
   }
 ##
-for (Line in 1:length(obese2)){
-  #Operate only on lines that do not include >, skips header lines
-  #Note that str_detect returns a logical T/F
-  if (!str_detect(obese2[Line],">")==TRUE){
-    #Find the ORF in each sequence line
-    match4[Line/2] = str_match(obese2[Line],"([ATCG]{3})*?(ATG([ATCG]{3})+?(TAA|TAG|TGA))")[,3]
-    #Print the ORF to standard out
-    print(match4)
-  }
-}
+
 ##
 #forloop for obese2 seq file orf extract
 for (Line in 1:length(obese2)){
@@ -136,6 +129,66 @@ obese2aa=(translate(s2c(match4[Line])))
 print(obese2aa)
 obese2protein[Line]=paste(obese2aa, sep="", collapse="")
 print(obese2protein)
-write.fasta(sequences = obese2protein, names = names(obese2protein), file.out = "obes2.fasta")
+write.fasta(sequences = as.list(obese2protein), names = rep("obese2", times=length(obese2protein)),file.out = "obese2protein.fasta")
+
   }
 
+###This is all in UNIX on the command line.
+###Align reference sequence files using muscle and then build an HMM profile using hmmbuild.
+
+##forloop muscle alignment
+for file in ./*.fasta
+do
+./muscle3.8.31_i86win32.exe -in $file -out $file.align
+done
+##
+##
+##for loop HMM profile Build
+for file in ./*.align
+do
+./hmmbuild.exe $file.hmm $file
+done
+
+
+
+###Search all 4 translated “RNAseqfiles” for each of the 6 HMM protein models using hmmsearch.
+for file in *protein.fasta
+do 
+for filename in *.hmm 
+do 
+./hmmsearch.exe --tblout $file.$filename.Results.txt $filename $file
+done
+done
+
+#Cat all the results with a file name ending in Results.txt. Remove the lines beginning with #, and then print only columns 1 and 3.
+#Use the unique funtion to count the number of hits for each file. Use awk one more time to remove space and append to a new file called All.Results.txt.
+cat *Results.txt | grep -v '#' | awk '{print $1,$3}' | uniq -c | awk '{print $1,$2,$3}' >> All.Results.txt
+##
+###Plotting in R
+#Load library
+library(ggplot2)
+##
+##
+#Read in fasta file, each line becomes an item in a vector
+All_Results = read.table(file = "All.Results.txt", col.names = 1:3)
+##
+##
+#Subsetting data by Transcript
+Control1_Counts = subset(All_Results, X2 == "control1", c(1-3))
+Control2_Counts = subset(All_Results, X2 == "control2", c(1-3))
+Obese1_Counts = subset(All_Results, X2 == "obese1", c(1-3))
+Obese2_Counts = subset(All_Results, X2 == "obese2", c(1-3))
+##
+##
+#Plotting the expression levels
+ggplot(data = Control1_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "black", color = "black") +
+  theme_classic() +xlab("Transcript") +ylab("Transcript Counts")
+
+ggplot(data = Control2_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "black", color = "black") +
+  theme_classic() +xlab("Transcript") +ylab("Transcript Counts")
+
+ggplot(data = Obese1_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "blue", color = "blue") +
+  theme_classic() +xlab("Transcript") +ylab("Transcript Counts")
+
+ggplot(data = Obese2_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "blue", color = "blue") +
+  theme_classic() +xlab("Transcript") +ylab("Transcript Counts")
