@@ -5,6 +5,13 @@
 #Translate nucleotide fasta files into aa fasta files
 #Reading the nucleotide fasta into aa fasta - start with startcodon and end at first stopcodon - use sed?(manual?)
 
+#UNIX  code to generate Top Hits
+for file in *.csv
+do
+cat $file | head -1 $file >> TopHits2.csv 
+done
+
+
 #Set working directory and read each of the original neucleotide fasta files.
 setwd("~/Desktop/data-shell/BioInfo_GroupProject/Bioinformatics_GroupProject_BLS/Original_Files/")
 
@@ -108,8 +115,6 @@ for (i in 1:length(amino_acid_list)){
   amino_acid_list[[i]] <- amino_acids[i]
 }
 
-  
-### Stil need to apply amino_acid_list to the mRNA sequences to get the protein sequences.
 ### Create a new vector the length of *_ORF and use a for loop look at each sequnce. 
     #Set a variable to one and while that variable is less then the number of characters in each sequence of *_.ORF, 
     #replace each set of 3 nucleotides with the corresponding amino acid. Shfit the value of the nucleotide up 3 and repeat.
@@ -165,7 +170,6 @@ write.fasta(sequences = as.list(Obese2_Protein), names = rep("Obese2", times=len
 
 ###This is all in UNIX on the command line.
 ###Align reference sequence files using muscle and then build an HMM profile using hmmbuild.
-
 #Set working directory
 cd /Users/lou/Desktop/data-shell/BioInfo_GroupProject/Bioinformatics_GroupProject_BLS/Protein_FASTA_Files
 
@@ -214,16 +218,16 @@ Obese2_Counts = subset(All_Results, X2 == "Obese2", c(1-3))
 
 #Plot
 ggplot(data = Control1_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "black", color = "black") +
-  theme_classic() +xlab("Transcript") +ylab("Transcript Counts")
+  theme_classic() +xlab("Transcript") +ylab("Transcript Counts") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggplot(data = Control2_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "black", color = "black") +
-  theme_classic() +xlab("Transcript") +ylab("Transcript Counts")
+  theme_classic() +xlab("Transcript") +ylab("Transcript Counts") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggplot(data = Obese1_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "black", color = "black") +
-  theme_classic() +xlab("Transcript") +ylab("Transcript Counts")
+  theme_classic() +xlab("Transcript") +ylab("Transcript Counts") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggplot(data = Obese2_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "black", color = "black") +
-  theme_classic() +xlab("Transcript") +ylab("Transcript Counts")
+  theme_classic() +xlab("Transcript") +ylab("Transcript Counts") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ####Boneyard: Please IGNORE!
 ###Align reference sequence files using muscle either format below is okay! Repeat alignment for all files.
