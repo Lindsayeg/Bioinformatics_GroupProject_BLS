@@ -2,7 +2,9 @@
 title: "BioInfo_GroupProject"
 author: "Lindsay Serene, Bhavana Palakurthi, and Shane Davitt"
 date: "12/7/2017"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
