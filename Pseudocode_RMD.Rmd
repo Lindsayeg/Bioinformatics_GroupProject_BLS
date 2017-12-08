@@ -1,3 +1,14 @@
+---
+title: "Pseudocode"
+author: "Bhavana"
+date: "December 8, 2017"
+output: pdf_document
+---
+
+### **Pseudocode_RMD**
+
+
+```{r setup, include=FALSE}
 ###Pseudocode to translate nucleotide sequences to aminoacid sequences
 ##Load the required packages
 #Read the aa sequence file - codonmap.txt file
@@ -28,7 +39,6 @@
 #Search the NCBI protein database for amino acid sequences corresponding to
 #these 6 transcripts.
 
-<<<<<<< HEAD
 ##Further exploration 1
 #Use BLAST to identify the genes encoded by the 3 differentially expressed transcripts
 #Using Unix commands, make a single table that includes the top hit for each
@@ -42,10 +52,5 @@
 #identify the expression counts
 #tabulate the differential counts
 
-=======
-###Psuedocode for Further Exporation 1
-#Use the same methods to obtain BLAST hits as given in instructions and used above on the uniquetranscripts.fasta, except
-#make the reported sequences restricted to mouse sequences to make the task more 
-#manegable. Use all three algorithims (megablast, discontinuous megablast,
-#and blastn) which can be found in the "Optimize for" option (as mentioned in the instructions).
->>>>>>> 5cd300383b07837cb85a1766f4cbeff5af0a0386
+
+```
