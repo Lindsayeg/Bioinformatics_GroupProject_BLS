@@ -1,0 +1,6 @@
+18 Control1 Ceropithecidae_Atp12a_sequences.fasta
+12 Control1 Even_toed_Ungulate_Gsta2_Sequences.fasta
+12 Control1 Marsupials_Ptpn5_Sequences.fasta
+38 Obese1 Ceropithecidae_Atp12a_sequences.fasta
+2 Obese1 Even_toed_Ungulate_Gsta2_Sequences.fasta
+20 Obese1 Marsupials_Ptpn5_Sequences.fasta
