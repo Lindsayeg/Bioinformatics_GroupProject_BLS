@@ -1,0 +1,31 @@
+#                                                                                --- full sequence ---- --- best 1 domain ---- --- domain number estimation ----
+# target name        accession  query name                            accession    E-value  score  bias   E-value  score  bias   exp reg clu  ov env dom rep inc description of target
+#------------------- ----------                  -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+Control1             -          Ceropithecidae_Atp12a_sequences.fasta -                  0 2169.1   9.7         0 2168.9   9.7   1.0   1   0   0   1   1   1   1 -
+#
+# Program:         hmmsearch
+# Version:         3.1b2 (February 2015)
+# Pipeline mode:   SEARCH
+# Query file:      Ceropithecidae_Atp12a_sequences.fasta.align.hmm
+# Target file:     Control1_Protein.fasta
+# Option settings: /Users/lou/Desktop/hmmer-3.1b2-macosx-intel/binaries/hmmsearch --tblout Control1_Protein.fasta.Ceropithecidae_Atp12a_sequences.fasta.align.hmm.Results.txt Ceropithecidae_Atp12a_sequences.fasta.align.hmm Control1_Protein.fasta 
+# Current dir:     /Users/lou/Desktop/data-shell/BioInfo_GroupProject/Bioinformatics_GroupProject_BLS/Further_Exploration_2
+# Date:            Fri Dec  8 09:49:57 2017
+# [ok]
