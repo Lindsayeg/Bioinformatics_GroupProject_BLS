@@ -118,7 +118,23 @@ for (Line in 1:length(Obese2)){
   }
 }
 ```
+Alternatively we also have another method to extract open reading frame and translate it. We have them explained below.
+```{r, message=FALSE, warning=FALSE}
+#Set working directory and read each of the original neucleotide fasta files.
+setwd("~/Desktop/data-shell/BioInfo_GroupProject/Bioinformatics_GroupProject_BLS/Original_Files/")
 
+#Read in fasta file, each line becomes an item in a vector
+Codon_Map=scan("codonmap.txt",what=character(),sep="\n")
+Control1=scan("control1.fasta",what=character(),sep="\n")
+Control2=scan("control2.fasta",what=character(),sep="\n")
+Obese1=scan("obese1.fasta",what=character(),sep="\n")
+Obese2=scan("obese2.fasta",what=character(),sep="\n")
+
+#Load package
+library('stringr')
+library('devtools')
+library('seqinr')
+```
 Having identified the open reading frame and extracted our genes of interest, the next goal of aim 2 was to translate each codon of the extracted nucleotide sequences into thier corresponding amino acids. To do this, we first created a dictionary of amino acids, which we could then apply to the nucleotide sequences using a while loop.
 
 ```{R}
@@ -277,4 +293,8 @@ ggplot(data = Obese1_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "sum
 ggplot(data = Obese2_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "black", color = "black") +
   theme_classic() +xlab("Transcript") +ylab("Transcript Counts") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
+Based on the counts of hmm hits for each transcript (our measure of RNA expression) in each "RNAseq file," most of our results align qualitatively to those reported in Kuhns & Pluznick 2017. Except for two genes discussed below. Please refer to our excel sheet titled "QualitativeComparision_expression.xlsx".
+1. Slc7a12 in one of our groups (group1) has upregulation  where as in Kuhns & Pluznick 2017, it is downregulated.
+2. Ptpn5 is downregulated in our group 2 where as in Kuhns & Pluznick 2017, it us upregulated.
 
