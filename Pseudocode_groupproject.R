@@ -22,3 +22,9 @@
 #transcript.
 #Search the NCBI protein database for amino acid sequences corresponding to
 #these 6 transcripts.
+
+###Psuedocode for Further Exporation 1
+#Use the same methods to obtain BLAST hits as given in instrucctions and used above on the uniquetranscripts.fasta, escept
+#make the sequences restricted to mouse sequences to make the task more 
+#manegable. Use all three algorithims megablast, discontinuous megablast,
+#and blastn, which can be found in the "Optimize for" option(as mentioned in the instrucctions)
