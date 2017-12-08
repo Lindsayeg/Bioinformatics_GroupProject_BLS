@@ -66,17 +66,25 @@ for (Line in 1:length(Control1)){
   #Note that str_detect returns a logical T/F.
   if (!str_detect(Control1[Line],">")){
     #Find the ORF in each sequence line and write to a new file.
-    #Search for the start codon (ATG) in each line of Control1 (with grepexpr) and       assign it a new variable called atg_positions.
+    #Search for the start codon (ATG) in each line of Control1 (with grepexpr) and
+    #assign it a new variable called atg_positions.
     atg_positions <- gregexpr('ATG', Control1[Line])[[1]]
-    #Determine which codons are in the first reading frame (where atg_position is        divisible by 3), and assign the position of the first to a new variable called      start_codon_position.
+    #Determine which codons are in the first reading frame (where atg_position is
+    #divisible by 3), and assign the position of the first to a new variable called
+    #start_codon_position.
     start_codon_position <- min(atg_positions[atg_positions%%3==1])
-    #Extract sequences from each line of Control 1 from the first start codon            position and place into a new variable called ORF_Temp.
+    #Extract sequences from each line of Control 1 from the first start codon
+    #position and place into a new variable called ORF_Temp.
     ORF_temp <- substring(Control1[Line], start_codon_position)
-    #Repeat this process for the stop codon, by first searching for each of the          three stop codons in ORF_Temp.
+    #Repeat this process for the stop codon, by first searching for each of the
+    #three stop codons in ORF_Temp.
     end_positions <- gregexpr("(TAA)|(TAG)|(TGA)", ORF_temp)[[1]]
-    #Determine which stop codons are in the first reading frame (where                   stop_codon_position is divisible by 3), and assign the position of the first to      a new variable called end_positions.
+    #Determine which stop codons are in the first reading frame (where
+    #stop_codon_position is divisible by 3), and assign the position of the first to
+    #a new variable called end_positions.
     end_codon_position <- min(end_positions[end_positions%%3==1])
-    #Extract the sequence from each line from the start codon in ORF_temp to the         first stop codon and assign it a final varible.
+    #Extract the sequence from each line from the start codon in ORF_temp to the
+    #first stop codon and assign it a final varible.
     Control1_ORF[Line/2] = substring(ORF_temp, 1, end_codon_position+2)
   }
 }
@@ -119,22 +127,23 @@ for (Line in 1:length(Obese2)){
 }
 ```
 Alternatively we also have another method to extract open reading frame and translate it. We have them explained below.
-```{r, message=FALSE, warning=FALSE}
+```{r1, message=FALSE, warning=FALSE}
 ##Translating RNAseq files into aminoacid sequences
 ##Using regex and translate function from seqinr 
-##
-#Assign empty character vectors for file to extract open reading frame into them
-match1=character(length(control1)/2)
-match2=character(length(control2)/2)
-match3=character(length(obese1)/2)
-match4=character(length(obese2)/2)
-##
-##
+#
+#
 #Read the nucleotide fasta files control 1&2 and obese 1&2
 control1=scan(file = "control1.fasta.txt", what = character(), sep = "\n")
 control2=scan(file = "control2.fasta.txt", what = character(), sep = "\n")
 obese1=scan(file = "obese1.fasta.txt", what = character(), sep = "\n")
 obese2=scan(file = "obese2.fasta.txt", what = character(), sep = "\n")
+#
+#
+#Assign empty character vectors for file to extract open reading frame into them
+match1=character(length(control1)/2)
+match2=character(length(control2)/2)
+match3=character(length(obese1)/2)
+match4=character(length(obese2)/2)
 ##
 ##
 #Load stringr/i and seqinr packages
@@ -438,4 +447,50 @@ ggplot(data = Obese2_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "sum
 Based on the counts of hmm hits for each transcript (our measure of RNA expression) in each "RNAseq file," most of our results align qualitatively to those reported in Kuhns & Pluznick 2017. Except for two genes discussed below. Please refer to our excel sheet titled "QualitativeComparision_expression.xlsx".
 1. Slc7a12 in one of our groups (group1) has upregulation  where as in Kuhns & Pluznick 2017, it is downregulated.
 2. Ptpn5 is downregulated in our group 2 where as in Kuhns & Pluznick 2017, it us upregulated.
+
+
+###**Further Exploration 2**
+
+The goal of Further Exploration 2 was to explore the effect of genetic relatedness on the performance of our HMM model.  For exmaple, if our original protein sequences were based not on rodents but more distantly related mammals such as ceropithecidae, even toed ungulates, and marsupials, would our HMM model produce the same number of hits for the analyzed proteins (Atp12a, Gsta2, and Ptpn5).
+
+After downloading new protein fasta files with sequences dervied from more distantly related organisms, we used the follwoing code to generate new alignments and HMM proteins models which we used to search against two "RNAseq files": Control1 and Obese1.
+
+```{Unix code 4}
+#Further Exploration 2
+###This is all in UNIX on the command line.
+###Align reference sequence files using muscle and then build an HMM profile using hmmbuild.
+#Set working directory
+cd /Users/lou/Desktop/data-shell/BioInfo_GroupProject/Bioinformatics_GroupProject_BLS/Further_Exploration_2/
+
+###Align reference sequence files using muscle and a for loop.
+for file in ./*.fasta
+do
+/Users/lou/Desktop/muscle3.8.31_i86darwin64 -in $file -out $file.align
+done
+
+###Build a profile HMM using alignment sequences and hmmbuild using a for loop.
+for file in ./*.align
+do
+/Users/lou/Desktop/hmmer-3.1b2-macosx-intel/binaries/hmmbuild $file.hmm $file
+done
+
+###Search all 4 translated “RNAseqfiles” for each of the 6 HMM protein models using hmmsearch.
+for file in *_Protein.fasta
+do 
+for filename in *.hmm
+do 
+/Users/lou/Desktop/hmmer-3.1b2-macosx-intel/binaries/hmmsearch --tblout $file.$filename.Results.txt $filename $file 
+done 
+done
+
+#Cat all the results with a file name ending in Results.txt. Remove the lines beginning with #, and then print only columns 1 and 3.
+#Use the unique funtion to count the number of hits for each file. Use awk one more time to remove space and append to a new file called All.Results.txt.
+cat *Results.txt | grep -v '#' | awk '{print $1,$3}' | uniq -c | awk '{print $1,$2,$3}' >> FE2.All.Results.txt
+```
+
+Using the resulting file, **FE2.All.Results.txt**, we created an excel table called **Furtherexploration2_comparisiontable.xlsx** to compare the HMM model built with sequences dervied mainly from rodents with those dervied from distantly related mammals. This excel file indicated there was no difference between the two models (i.e. the protein counts for each Atp12a, Gsta2, and Ptpn5 in both Control1 and Obese1 were the same for each model).  This result could be because these proteins are highly conserved within mammals.  Additionally, it could mean that the original protein files contained protein sequences of mammals other than rodents, which might have reduced its strength.
+
+[id]: Desktop/Comparison_Table.png "Comparison Table"
+
+
 
