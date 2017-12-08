@@ -434,7 +434,6 @@ ggplot(data = Obese1_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "sum
 ggplot(data = Obese2_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "summary",fun.y = "mean", fill = "black", color = "black") +
   theme_classic() +xlab("Transcript") +ylab("Transcript Counts") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-<<<<<<< HEAD
 ##Further Exploration #1
 ###Aim: To evaluate the effect of choice among megablast, discontinous Megablast, and blastn algorithims on BLAST hit results  
 
@@ -443,10 +442,8 @@ ggplot(data = Obese2_Counts)+geom_bar(aes(x =as.factor(X3), y = X1), stat = "sum
   Moving to Transcript_2, blastn and discontinuous megablast reported 44 matches while megablast reported only 29 matches, similar to the results with Transcript_1. Once again, the two alternative algorithims found more matches with low E scoes than what megablast found, yet the two alternative algorithims also found extra worse matches that megablast did not find.
   Finally, for Transcript_3, megablast once more reported less total matches (68) than the alternative algorithims reported (both 146). However, while the alternative algorithims once again returned extra matches with higher E scores than the highest E scores returned with Megabalst, the alternative algorithims failed to find extra matches with lower E scores than those reported by Megablast. 
   It is  important to note that for all of the transcripts investigated the alternative algorithims report the same E scores and the same number of matches, so they are likly reporting the same sequences as macthes.It is also important to recognize that while all three algorithims find a stretch of matches with E scores of 0, the extra "low E score" matches discussed here either refer to an extension of that string of 0 E score matches or lower E scores in the matches immediately following that string of 0 E score matches. The differences in these E scores could also arise from all of the algorithims finding the same good-match (low E score) sequences but that the different algorthims calculate the E scores differently (or input different values into the E score equation). Thus, while it is apparent that the alternative algorithims report extra sequences which are worse matches to the search sequence than the worst matches reported by megablast, it remains to be seen whether the extra low E scores reported by the alternative algorithims with 2 of the 3 transcripts studied (1 and 2) reflect actual extra good matches found by the alternative algorithims or simply slight differences in the way E scores are calculated among the algorithims.
-=======
 
 Based on the counts of hmm hits for each transcript (our measure of RNA expression) in each "RNAseq file," most of our results align qualitatively to those reported in Kuhns & Pluznick 2017. Except for two genes discussed below. Please refer to our excel sheet titled "QualitativeComparision_expression.xlsx".
 1. Slc7a12 in one of our groups (group1) has upregulation  where as in Kuhns & Pluznick 2017, it is downregulated.
 2. Ptpn5 is downregulated in our group 2 where as in Kuhns & Pluznick 2017, it us upregulated.
 
->>>>>>> 527e75afdd48cb8f88f49cad9c71df93d9faa0b9
