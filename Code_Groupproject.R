@@ -53,7 +53,6 @@ for (Line in 1:length(Control1)){
     end_codon_position <- min(end_positions[end_positions%%3==1])
     #Extract the sequence from each line from the start codon in ORF_temp to the first stop codon and assign it a final varible.
     Control1_ORF[Line/2] = substring(ORF_temp, 1, end_codon_position+2)
-    #Control1_ORF[Line/2] = str_extract(ORF_temp,"ATG([ATGC]{3})+((TAG)|(TAA)|(TGA))?")
   }
 }
 
